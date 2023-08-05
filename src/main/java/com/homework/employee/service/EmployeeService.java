@@ -1,6 +1,6 @@
-package com.homework.service;
+package com.homework.employee.service;
 
-import com.homework.model.Employee;
+import com.homework.employee.model.Employee;
 
 
 import java.util.*;

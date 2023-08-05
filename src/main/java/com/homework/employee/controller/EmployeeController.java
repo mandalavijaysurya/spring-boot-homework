@@ -1,10 +1,8 @@
-package com.homework.controller;
+package com.homework.employee.controller;
 
-import com.homework.model.Employee;
-import com.homework.service.EmployeeService;
+import com.homework.employee.model.Employee;
+import com.homework.employee.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,38 +18,42 @@ import java.util.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/")
 public class EmployeeController {
 
     private final EmployeeService service;
 
-    @PostMapping("/addEmployee")
+    @PostMapping("/add-employee")
     public String addEmployee(@RequestBody Employee emp){
         service.createEmployee(emp);
         return "Employee has been added";
     }
 
-    @PostMapping("/addMulEmployee")
+    @PostMapping("/multiple-employees")
     public String addMultipleUsers(@RequestBody List<Employee> empList){
         service.createMultipleEmployees(empList);
         return "Employees have been added";
     }
-    @RequestMapping(value = "/findEmployee/{id}", method = RequestMethod.GET)
+
+    @GetMapping("/employee-salary-greater-than")
+    public List<Employee> getEmployeeListGreaterThanInp(@RequestParam int sal){
+        return service.getEmployeeListGreaterThan(sal);
+    }
+
+    @RequestMapping(value = "/employee/{id}", method = RequestMethod.GET)
     public Employee searchEmployee(@PathVariable Long id) throws Exception {
         return service.getEmployeeById(id);
     }
 
-    @PutMapping("/updateEmployee")
+    @PutMapping("/employee")
     public String updateEmployee(@RequestBody Employee emp){
         service.updateEmployeeDetailsById(emp);
         return emp.getFirstName()+" "+emp.getLastName()+" "+" details has been updated";
     }
-    @DeleteMapping("/deleteEmployee{id}")
+    @DeleteMapping("/employee/{id}")
     public String deleteUser(@PathVariable Long id){
         return service.deleteEmployeeById(id);
     }
 
-    @GetMapping("/getEmpSalGrtrThan")
-    public List<Employee> getEmployeeListGreaterThanInp(@RequestParam int sal){
-        return service.getEmployeeListGreaterThan(sal);
-    }
+
 }

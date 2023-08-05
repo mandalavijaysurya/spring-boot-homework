@@ -1,7 +1,7 @@
-package com.homework.service.impl;
+package com.homework.employee.service.impl;
 
-import com.homework.model.Employee;
-import com.homework.service.EmployeeService;
+import com.homework.employee.model.Employee;
+import com.homework.employee.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -20,8 +20,8 @@ public class EmployeeServiceImpl implements EmployeeService {
        employeeList.addAll(empList);
     }
     @Override
-    public Employee getEmployeeById(Long id) throws Exception {
-        return employeeList.stream().filter(employee -> employee.getId().equals(id)).findFirst().orElseThrow(() -> new Exception(id+" is invalid. Couldn't able to find employee with id as "+id));
+    public Employee getEmployeeById(Long id) throws RuntimeException {
+        return employeeList.stream().filter(employee -> employee.getId().equals(id)).findFirst().orElseThrow(() -> new RuntimeException(id+" is invalid. Couldn't able to find employee with id as "+id));
     }
 
     @Override

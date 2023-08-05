@@ -1,4 +1,4 @@
-package com.homework.model;
+package com.homework.employee.model;
 
 import lombok.Builder;
 import lombok.Data;
