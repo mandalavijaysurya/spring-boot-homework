@@ -7,9 +7,9 @@ import java.util.*;
 
 
 public interface EmployeeService {
-    void createEmployee(Employee emp);
+    Employee createEmployee(Employee emp);
     void createMultipleEmployees(List<Employee> empList);
-    Employee getEmployeeById(Long id) throws Exception;
+    Employee getEmployeeById(Long id) ;
     void updateEmployeeDetailsById(Employee emp);
     String deleteEmployeeById(Long id);
     List<Employee> getEmployeeListGreaterThan(int sal);

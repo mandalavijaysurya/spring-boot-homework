@@ -2,7 +2,11 @@ package com.homework.employee.controller;
 
 import com.homework.employee.model.Employee;
 import com.homework.employee.service.EmployeeService;
+import com.mysql.cj.x.protobuf.Mysqlx;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.transform.OutputKeys;
 import java.util.*;
 
 @RestController
@@ -24,9 +29,10 @@ public class EmployeeController {
     private final EmployeeService service;
 
     @PostMapping("/add-employee")
-    public String addEmployee(@RequestBody Employee emp){
-        service.createEmployee(emp);
-        return "Employee has been added";
+    public ResponseEntity<String> addEmployee(@RequestBody Employee emp){
+        Long id = service.createEmployee(emp).getId();
+        String body =  "Employee with id "+ id+" has been added";
+        return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(body);
     }
 
     @PostMapping("/multiple-employees")
@@ -41,8 +47,9 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/employee/{id}", method = RequestMethod.GET)
-    public Employee searchEmployee(@PathVariable Long id) throws Exception {
-        return service.getEmployeeById(id);
+    public ResponseEntity<Employee> searchEmployee(@PathVariable Long id) throws Exception {
+        Employee body = service.getEmployeeById(id);
+        return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(body);
     }
 
     @PutMapping("/employee")

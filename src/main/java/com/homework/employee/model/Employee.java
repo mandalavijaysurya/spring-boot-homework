@@ -1,14 +1,16 @@
 package com.homework.employee.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.stereotype.Service;
-import java.io.Serializable;
+import lombok.NoArgsConstructor;
 
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class Employee implements Serializable {
+public class Employee {
     private Long id;
     private String firstName;
     private String lastName;
